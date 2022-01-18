@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>CalCalc</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" >
+    <div class="main-container" v-cloak>
+        <div class="block">
+            <div class="food-container">
+                <div class="food-input">
+                    <div class="food-form">
+                        <input class="food-name" type="text" @input="search" placeholder="find your food" name="food-name" v-model="form.name">
+                        <div class="autocom-box" >
+                            <li v-for="e in sugFood" @click="select(e.id)">
+                                {{ e.name }}
+                            </li>
+                        </div>
+                        <input class="food-quantity" type="number" placeholder="input food quantity" name="food-name" v-model="form.quantity">
+                        <button type="button" class="btn btn-warning" @click="addFood" :disabled="!canAdd">Add</button>
+                    </div>
+                </div>
+                <div class="food-now" v-if="foodNow.length">
+                    <div class="food-object" v-for="e in foodNow">
+                        <!--<p>{{e}}</p>-->
+                        <p><b>{{ e['name'] }}</b></p>
+                        <p><b>{{ e['v'] }}</b></p>
+                        <p>{{ e['cal'] }}</p>
+                        <p>{{ e['prot'] }}</p>
+                        <p>{{ e['fat'] }}</p>
+                        <p>{{ e['carb'] }}</p>
+                        <button type="button" class="btn btn-danger" @click="removeFood(e.id)">delete</button>
+                    </div>
+                    <div class="food-result">
+                        <p><b>{{sumFood['q']}} meals</b></p>
+                        <p><b>{{sumFood['v']}}</b></p>
+                        <p>{{sumFood['cal']}}</p>
+                        <p>{{sumFood['prot']}}</p>
+                        <p>{{sumFood['fat']}}</p>
+                        <p>{{sumFood['carb']}}</p>
+                        <button type="button" class="btn btn-success" @click="saveMeal">save</button>
+                    </div>
+                </div>
+                <div v-else>
+                    <p>Добавьте еду через поиск выше!</p>
+                </div>
+            </div>
+
+            <div class="change-info">
+                <div class="change-block">
+                    <input class="inputblueshadow" type="number" placeholder="input new age" v-model="newAge">
+                    <button type="button" class="btn btn-primary" @click="updateAge">Save</button>
+                </div>
+                <div class="change-block">
+                    <input class="inputblueshadow" type="number" placeholder="input new height" v-model="newHeight">
+                    <button type="button" class="btn btn-primary" @click="updateHeight">Save</button>
+                </div>
+                <div class="change-block">
+                    <input class="inputblueshadow" type="number" placeholder="input new weight" v-model="newWeight">
+                    <button type="button" class="btn btn-primary" @click="updateWeight">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-container">
+            <div class="cal-stat">
+                <label for="cal-progressbar">Калорий поглощено сегодня</label>
+                <div id="cal-progressbar">
+                    <div id="cal-progr-done">
+                        <p class="progrbarp" data="40" id="cal-progr-val">{{ progrBar }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="daily-stat">
+                <div class="day-stat">
+                    <p>Дата</p>
+                    <p>Калории</p>
+                    <p>Белки</p>
+                    <p>Жиры</p>
+                    <p>Углеводы</p>
+                </div>
+                <div  v-for="e in prevDaysStat">
+                    <div class="day-stat">
+                        <p><b>{{ e.date }}</b></p>
+                        <p>{{ e.calories }}</p>
+                        <p>{{e.protein}}</p>
+                        <p>{{ e.fat }}</p>
+                        <p>{{ e.carbohydrates }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="exit">
+        <div class="logout">
+            <button type="button" class="btn btn-danger" @click="deleteCookie">Log out</button>
+        </div>
+        <div class="cp">
+            <p>Made by Voloshanovych 372</p>
+        </div>
+    </div>
+
+    <div class="unauth-hide" v-if="!auth">
+        <div class="a">
+            <div class="at">
+                <div class="tipo-buton"><h4 class="btna gr" >Зайди в свой аккаунт или создай новый, чтобы пользоваться сайтом</h4></div>
+                <div class="tipo-buton"><a class="btna btn---green" href="/login">Войти в аккаунт</a></div>
+                <div class="tipo-buton"><a class="btna btn---green" href="/registration">Зарегистрироваться</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

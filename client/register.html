@@ -1,0 +1,150 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <style>
+        .chips{
+            padding: 5px 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        #chips-field{
+            position: fixed;
+            right: 0;
+            top:0;
+            bottom: 0;
+            width: 15%;
+        }
+    </style>
+
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>CalCalc</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="my-form" >
+    <div class="cotainer" id="register_app">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Register</div>
+                    <div class="card-body">
+                        <form name="my-form" @submit.prevent="makeRegistration">
+                            <div class="form-group row">
+                                <label for="login" class="col-md-4 col-form-label text-md-right">login</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="login" class="form-control" name="login" v-model="login">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">email</label>
+                                <div class="col-md-6">
+                                    <input type="email" id="email" oninput="check_mail()"  class="form-control" name="email" v-model="email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">password</label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password" oninput="check_pass()" class="form-control" name="password" v-model="password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password_again" class="col-md-4 col-form-label text-md-right">password</label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password_again" oninput="check_pass()" class="form-control" name="password_again" v-model="password_again">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="weightNow" class="col-md-4 col-form-label text-md-right">weightNow</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="weightNow" oninput="checkint()" class="form-control" name="weightNow" v-model="weightNow">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="age" class="col-md-4 col-form-label text-md-right">age</label>
+                                <div class="col-md-6">
+                                    <input type="text"  id="age" class="form-control" oninput="checkint()" name="age" v-model="age">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="height" class="col-md-4 col-form-label text-md-right">height</label>
+                                <div class="col-md-6">
+                                    <input type="text"  id="height" oninput="checkint()" class="form-control" name="height" v-model="height">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="activity" class="col-md-4 col-form-label text-md-right">activity</label>
+                                <div class="col-md-6">
+                                        <select class="form-control" name="activity" id="activity" v-model="activity">
+                                        <option disabled>укажите активность</option>
+                                        <option value="1.2">ваша активность в основном сводится к перемещению с кровати на диван</option>
+                                        <option value="1.375">вы более активны и заглушаете совесть лёгкими тренировками от 1 до 3 раз в неделю</option>
+                                        <option value="1.55">вам не чужды умеренные занятия спортом от 3 до 5 раз в неделю</option>
+                                        <option value="1.725">вы нагружаете себя тяжёлыми тренировками 6–7 раз в неделю</option>
+                                        <option value="1.9">вы выкладываетесь на всю катушку (работаете физически, тренируетесь дважды в день, выполняете силовые упражнения)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="genderM" class="col-md-4 col-form-label text-md-right" >sex</label>
+                                <div class="col-md-6">
+                                    <p style="display: inline; width: 50%; margin: 3%; margin-block-end: 0;"><input type="radio" id="genderM" class="" name="gender" value="male" checked v-model="sex">Male</p>
+                                    <p style="display: inline; width: 50%; margin: 3%; margin-block-end: 0;"><input type="radio" id="genderF" class="" value="female" name="gender" v-model="sex">Female</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" id="submit" class="btn btn-primary" v-bind="{disabled:canRegister}">
+                                    Register
+                                </button>
+                                {{resp}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="module" src="js/register-vue.js"></script>
+</body>
+</html>
