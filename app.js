@@ -10,7 +10,7 @@ const CheckAddFoodToDB = require('./services/add-food')
 const get_food_db = require('./services/get-food')
 const colors = require('colors')
 const {subDays,endOfDay} = require('date-fns')
-const db_api = require{db_creds}
+const db_api = require('db_creds')
 
 
 let all_food = get_food_db()
